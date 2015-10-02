@@ -142,7 +142,25 @@ For example the number 7:
 1^2 + 0^2 = 1
 
 If a number is not happy than it is obviously unhappy. Now that you have this program, what is the largest happy number you can find? 
-What is the happiest number between 1 and 1,000,000.
+What is the happiest number between 1 and 1,000,000. The happiest number as the smallest number that finds the most other happy numbers 
+with it, i.e. 7 found four other numbers (49, 97, 130, and 10) making it a rank 4 in happiness.
 
+About the unhappy number, there's a pattern here: 
+0: 0
+4:  16 37 58 89 145 42 20 4 
+16: 37 58 89 145 42 20 4 16
+20: 4 16 37 58 89 145 42 20
+37: 58 89 145 42 20 4 16 37
+42: 20 4 16 37 58 89 145 42
+58: 89 145 42 20 4 16 37 58
+89: 145 42 20 4 16 37 58 89
+145:42 20 4 16 37 58 89 145
+
+I mainly took 2 steps to achive this: 
+ - get the rank of happiess of each number, in order to reduce the calculation, the zeros in the digits can be deleted and sharing the
+ same digits with different orders are calcuated once. I used a hash(@sum_of_digits) to store the sum result of those digits after deleting
+ the zeros and ordering. and those sum hits the unhappy number, rank is set to 0. 
+ 
+ - and then traverse their ranks and get the highest rank.  
 
 
