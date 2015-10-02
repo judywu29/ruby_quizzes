@@ -161,6 +161,93 @@ I mainly took 2 steps to achive this:
  same digits with different orders are calcuated once. I used a hash(@sum_of_digits) to store the sum result of those digits after deleting
  the zeros and ordering. and those sum hits the unhappy number, rank is set to 0. 
  
- - and then traverse their ranks and get the highest rank.  
+ - and then traverse their ranks and get the highest rank. 
+ 
+Index and Query
+=================
+Requirement: 
+
+If you have: 
+
+Doc1=The quick brown fox
+
+Doc2=Jumped over the brown dog
+
+Doc3=Cut him to the quick
+
+You can build a table with bit number and word.
+
+	1 the
+	2 quick
+	3 brown
+	4 fox
+	5 jumped
+	6 over
+	7 dog
+	8 cut
+	9 him
+	10 to
+	11 quick
+
+To create indices:
+
+	Doc1=00000001111
+	Doc2=00001110101
+	Doc3=11110000011
+
+You can very quickly return the Docs that contain 'the' [ Doc1,Doc2,Doc3 ], or brown [ Doc1,Doc2 ] etc. 
+
+Solution:
+
+I use 2 Hashes, one is for the term to keep the term and its unique index across all of the files. as this: 
+	key    value
+	the     1
+	quick   2
+	brown   3
+	fox     4
+	jumped  5
+	over    6
+
+Once you have an index for the new term, it's time to record it in the index Hash, under the current document name. 
+Each document name is given a single Integer for a value. The bit at the term index is then just flipped on to indicate the presence 
+of a term. This will make for some big numbers, but Ruby will automatically switch to Bignum as needed.
+
+
+result: 
+
+	ruby index_and_query.rb add "doc1" "doc2" "doc3"
+	ruby index_and_query.rb find "the"
+	["doc1", "doc2", "doc3"]
+	192-168-1-3:index_and_query judy$ ruby index_and_query.rb find "brown"
+	["doc1", "doc2"]
+	192-168-1-3:index_and_query judy$ ruby index_and_query.rb find "brown" "the"
+	["doc1", "doc2", "doc1", "doc2", "doc3"]
+	192-168-1-3:index_and_query judy$ ruby index_and_query.rb find "brown" "the" "cut"
+	["doc1", "doc2", "doc1", "doc2", "doc3", "doc3"]
+	ruby index_and_query.rb dump
+	the: 
+	doc1
+	doc2
+	doc3
+	quick: 
+	doc1
+	doc3
+	brown: 
+	doc1
+	doc2
+	fox: 
+	doc1
+	jumped: 
+	doc2
+	over: 
+	doc2
+	dog: 
+	doc2
+	cut: 
+	doc3
+	him: 
+	doc3
+	to: 
+	doc3
 
 
