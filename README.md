@@ -263,3 +263,61 @@ Werid number is not a semi-perfect number which means the sum of part of its div
 
 I will eliminate those numbers to get the weird number. The smallest weird number starts from 70. 
 
+Numeric Maze
+=================
+We have a starting point and a target, say 2 and 9. We have a set of three operations:
+
+double
+halve    (Odd numbers cannot be halved.)
+add_two
+
+Problem: Move from the starting point to the target, minimizing the number of operations.
+
+Examples:
+
+solve(2,9)  # => [2,4,8,16,18,9]
+solve(9,2)  # => [9,18,20,10,12,6,8,4,2]
+
+We can use of bit operations, because they tend to be faster than multiplication and division. All we need to know about these is 
+that n << 1 == n * 2 and n >> 1 == n / 2.
+I use a instance variable to store all of the numbers to prevent repetition calculation when going through the numbers of each path. 
+They are a lot of repetition. So only new numbers are needed to calculate next time. 
+The controversion method - find_path will go as deep as there are steps in the solution. 
+Everytime, I take the last number(newly added) to calculate and push the result into the new_path if the number has never been calculated.
+I use 2 dimention array to record all of the paths(new_path), each dimention is the result of each operation.
+
+2
+  2, 4  (double)
+    2, 4, 8  (double)
+      2, 4, 8, 16  (double)
+      2, 4, 8, 4   (halve)
+      2, 4, 8, 10  (add two)
+    2, 4, 2  (halve)
+      2, 4, 2, 4  (double)
+      2, 4, 2, 1  (halve)
+      2, 4, 2, 4  (add two)
+    2, 4, 6  (add two)
+      2, 4, 6, 12  (double)
+      2, 4, 6, 3   (halve)
+      2, 4, 6, 8   (add two)
+  2, 1  (halve)
+    2, 1, 2  (double)
+      2, 4, 2, 4  (double)
+      2, 4, 2, 1  (halve)
+      2, 4, 2, 4  (add two)
+    2, 1, 3  (add two)
+      2, 4, 3, 6  (double)
+      2, 4, 3, 5  (add two)
+  2, 4  (add two)
+    2, 4, 8  (double)
+      2, 4, 8, 16  (double)
+      2, 4, 8, 4   (halve)
+      2, 4, 8, 10  (add two)
+    2, 4, 2  (halve)
+      2, 4, 2, 4  (double)
+      2, 4, 2, 1  (halve)
+      2, 4, 2, 4  (add two)
+    2, 4, 6  (add two)
+      2, 4, 6, 12  (double)
+      2, 4, 6, 3   (halve)
+      2, 4, 6, 8   (add two)
