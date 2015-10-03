@@ -250,4 +250,16 @@ result:
 	to: 
 	doc3
 
+Werid Numbers
+=================
+A weird number is defined as a number, n, such that the sum of all its divisors (excluding n itself) is greater than n, 
+but no subset of its divisors sums up to exactly n.
+
+We can rule out some numbers: 
+First of all, there are no known odd weird numbers, so we might as well toss out half of the set right off the bat. 
+(It's possible there are some very large odd weird numbers, but we would have trouble calculating those anyway.) 
+Weird number is also an abundant number. This is easy to check. (Sum of the divisors is greater than 2 times of itself.)
+Werid number is not a semi-perfect number which means the sum of part of its divisors cannot be equal to itself. 
+
+I will eliminate those numbers to get the weird number. The smallest weird number starts from 70. 
 
