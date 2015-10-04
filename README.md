@@ -384,3 +384,10 @@ output: 这试文是测件
 ruby word_munge.rb test
 Atactehd is my rmsuéé. 这是文测试件
 
+Bracket Packing
+=======================
+I just found an interesting quiz about checking the missing brackets. 
+
+
+
+
