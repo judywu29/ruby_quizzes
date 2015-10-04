@@ -321,3 +321,66 @@ I use 2 dimention array to record all of the paths(new_path), each dimention is 
 	      2, 4, 6, 12  (double)
 	      2, 4, 6, 3   (halve)
 	      2, 4, 6, 8   (add two)
+	      
+Current Temperature
+==================
+Write a Ruby program such that given a certain argument to the program it will return the current temperature of that location. 
+People living in the United States may be interested in temperature by ZIP code:
+
+$ ruby current_temp.rb 47201
+The temperature in Columbus, Indiana is 32 degrees F.
+
+Other locales may want to use their own mailing codes, or city names:
+
+$ ruby current_temp.rb madrid
+The temperature in Madrid, Spain is 12 degrees C.
+
+Which arguments you support is up to you.
+
+This time I will play around with web service. 
+Web services represent a predefined communication protocol. We pass the information the service expects in, 
+and it will return a promised response. 
+At first, we have to build the URL which points to the document describing the web service (a Web Service Description Language, 
+or WSDL, document). Another standard library, SOAP, is used to read and parse that document. In doing so, 
+it will build a custom object that has the methods provided by the service, accepting the arguments they expect.
+
+Searched for "SOAP in Ruby", and Savon is pretty much the only option. 
+
+Using Savon
+The first thing you need to do to use Savon (after installing the Gem) is to create yourself a client. 
+You can even ask the client which operations are available. It will parse through the WSDL file to generate an array of 
+operations/methods you can call.
+
+client = Savon.client(wsdl: "http://www.webservicex.net/globalweather.asmx?WSDL")
+client.operations # => [:get_weather]
+Next up you can make the request. It is sent using a plain Ruby Hash.
+
+response = client.call(:get_weather, message: { CityName: "Sydney", CountryName: "Australia" })
+What you'll get back is a response object which has a header method and a body method. The body method contains a hash, 
+which might look something like this:
+
+That's not so bad! Savon provides a very nice interface, so you rarely need to deal with XML or WSDL files directly. 
+It's a good idea to understand them, which will help you troubleshoot, but for the most part you're just working with Ruby Hashes.
+
+Word Munge
+===================
+This quiz is to take a text as input and output a new text. Scramble each word's center (leaving the first and last letters of 
+each word intact). Whitespace, punctuation, numbers -- anything that isn't a word -- should also remain unchanged.
+
+The munge algorithm is easy. we just need split to array and sort_by(rand) and then join the first, center and last characters.
+
+When we handle unicode, like split the word 'rsuémé', if I use split(""), it would split the multi-byte character up. 
+["s", "u", "\xC3", "\xA9", "m", "\xC3", "\xA9"], e.g. é has been splitted into "\xC3", "\xA9"
+We have to convert the string read from the file to 'UTF-8': 
+    self.encode("ASCII-8BIT").force_encoding("utf-8")
+
+and then we use the split(""), it will handle it correctly. it outputs :
+	["s", "u", "é", "m", "é"]
+  
+even for the Chinese, it can handle properly. 
+input: 这是测试文件
+output: 这试文是测件
+
+ruby word_munge.rb test
+Atactehd is my rmsuéé. 这是文测试件
+
