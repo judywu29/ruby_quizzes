@@ -430,5 +430,49 @@ the correct closer or empty the stack.So at the end, it will complete the opened
 never opened. I reversed it and then all closers becomes opener and then used the same way as the last step to fix the missing
 closers. 
 
+Hash to OpenStruct
+====================
+To convert a nested hash structure into a nested OpenStruct
+
+Sample yaml file: 
+	---
+	foo: 1
+	bar:
+	  baz: [1, 2, 3]
+	  quux: 42
+	  doctors:
+	    - William Hartnell
+	    - Patrick Troughton
+	    - Jon Pertwee
+	    - Tom Baker
+	    - Peter Davison
+	    - Colin Baker
+	    - Sylvester McCoy
+	    - Paul McGann
+	    - Christopher Eccleston
+	    - David Tennant
+	  a: {x: 1, y: 2, z: 3}
+
+Comparing the code using hash and openstruct: when access to the data 
+
+    @data = YAML::load(File.open('sample.yaml'))
+    p @data['foo']
+    p @data['bar']['baz']
+    p @data['bar']['quux']
+    p @data['bar']['doctors']
+    p @data['bar']['a']['x'] 
+    
+Apparently, it's cleaner when we access to the 'OpenStruct':
+    
+	  @data = self.converting_to_openstruct(YAML::load(File.open('sample.yaml')))
+      p @data.foo
+      p @data.bar.baz
+      p @data.bar.quux
+      p @data.bar.doctors
+      p @data.bar.a.x
+      
+#<OpenStruct foo=1, bar=#<OpenStruct baz=[1, 2, 3], quux=42, doctors=["William Hartnell", "Patrick Troughton", "Jon Pertwee", 
+"Tom Baker", "Peter Davison", "Colin Baker", "Sylvester McCoy", "Paul McGann", "Christopher Eccleston", "David Tennant"], 
+a=#<OpenStruct x=1, y=2, z=3>>>
 
 
