@@ -435,23 +435,24 @@ Hash to OpenStruct
 To convert a nested hash structure into a nested OpenStruct
 
 Sample yaml file: 
-	---
-	foo: 1
-	bar:
-	  baz: [1, 2, 3]
-	  quux: 42
-	  doctors:
-	    - William Hartnell
-	    - Patrick Troughton
-	    - Jon Pertwee
-	    - Tom Baker
-	    - Peter Davison
-	    - Colin Baker
-	    - Sylvester McCoy
-	    - Paul McGann
-	    - Christopher Eccleston
-	    - David Tennant
-	  a: {x: 1, y: 2, z: 3}
+	
+		---
+		foo: 1
+		bar:
+		  baz: [1, 2, 3]
+		  quux: 42
+		  doctors:
+		    - William Hartnell
+		    - Patrick Troughton
+		    - Jon Pertwee
+		    - Tom Baker
+		    - Peter Davison
+		    - Colin Baker
+		    - Sylvester McCoy
+		    - Paul McGann
+		    - Christopher Eccleston
+		    - David Tennant
+		  a: {x: 1, y: 2, z: 3}
 
 Comparing the code using hash and openstruct: when access to the data 
 
@@ -471,8 +472,8 @@ Apparently, it's cleaner when we access to the 'OpenStruct':
       p @data.bar.doctors
       p @data.bar.a.x
       
-#<OpenStruct foo=1, bar=#<OpenStruct baz=[1, 2, 3], quux=42, doctors=["William Hartnell", "Patrick Troughton", "Jon Pertwee", 
-"Tom Baker", "Peter Davison", "Colin Baker", "Sylvester McCoy", "Paul McGann", "Christopher Eccleston", "David Tennant"], 
-a=#<OpenStruct x=1, y=2, z=3>>>
+	  #<OpenStruct foo=1, bar=#<OpenStruct baz=[1, 2, 3], quux=42, doctors=["William Hartnell", "Patrick Troughton", "Jon Pertwee", 
+	  "Tom Baker", "Peter Davison", "Colin Baker", "Sylvester McCoy", "Paul McGann", "Christopher Eccleston", "David Tennant"], 
+      a=#<OpenStruct x=1, y=2, z=3>>>
 
 
