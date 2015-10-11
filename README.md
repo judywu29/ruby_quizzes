@@ -481,12 +481,12 @@ pp Pasca
 To print Pascal's Triangle:
 It's a pyramid of numbers. The outside of the pyramid is all ones, the other numbers are the sum of the two numbers above, 
 like this:
-
-    1    
-   1 1   
-  1 2 1  
- 1 3 3 1 
-1 4 6 4 1
+	
+		    1    
+		   1 1   
+		  1 2 1  
+		 1 3 3 1 
+		1 4 6 4 1
 
 The key is here to calculate the maximum length of the number of the last row. and then we know the space to leave for each num
 in each row.(leave 3*length for the space between 2 numbers) After that, I again use center method to print each row in the 
@@ -515,23 +515,23 @@ Basically, the rules are:
   day followed by a hyphen (-), followed by the last day of the range.
 * Individual days and the above day ranges should be separated by commas.
 * The class should number days (accepting Integers or Strings) as follows:
-    1:  Mon
-    2:  Tue
-    3:  Wed
-    4:  Thu
-    5:  Fri
-    6:  Sat
-    7:  Sun
+	    1:  Mon
+	    2:  Tue
+	    3:  Wed
+	    4:  Thu
+	    5:  Fri
+	    6:  Sat
+	    7:  Sun
 * The class needs a method named #to_s that returns the day range string.
   Here are some example lists of days and their expected returned strings:
-    1,2,3,4,5,6,7:  Mon-Sun
-    1,2,3,6,7:      Mon-Wed, Sat, Sun
-    1,3,4,5,6:      Mon, Wed-Sat
-    2,3,4,6,7:      Tue-Thu, Sat, Sun
-    1,3,4,6,7:      Mon, Wed, Thu, Sat, Sun
-    7:              Sun
-    1,7:            Mon, Sun
-    1,8:            ArgumentError
+	    1,2,3,4,5,6,7:  Mon-Sun
+	    1,2,3,6,7:      Mon-Wed, Sat, Sun
+	    1,3,4,5,6:      Mon, Wed-Sat
+	    2,3,4,6,7:      Tue-Thu, Sat, Sun
+	    1,3,4,6,7:      Mon, Wed, Thu, Sat, Sun
+	    7:              Sun
+	    1,7:            Mon, Sun
+	    1,8:            ArgumentError
 
 Solution: 
 I use the initialize methdo to do the input argument checking, it will raise argument error if
