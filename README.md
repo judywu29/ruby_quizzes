@@ -476,4 +476,69 @@ Apparently, it's cleaner when we access to the 'OpenStruct':
 	  "Tom Baker", "Peter Davison", "Colin Baker", "Sylvester McCoy", "Paul McGann", "Christopher Eccleston", "David Tennant"], 
       a=#<OpenStruct x=1, y=2, z=3>>>
 
+pp Pasca
+==============
+To print Pascal's Triangle:
+It's a pyramid of numbers. The outside of the pyramid is all ones, the other numbers are the sum of the two numbers above, 
+like this:
 
+    1    
+   1 1   
+  1 2 1  
+ 1 3 3 1 
+1 4 6 4 1
+
+The key is here to calculate the maximum length of the number of the last row. and then we know the space to leave for each num
+in each row.(leave 3*length for the space between 2 numbers) After that, I again use center method to print each row in the 
+center of the last row. 
+
+
+day range
+==============
+
+To create a method to convert a list of days into a more human-readable string.
+
+For example, suppose a musician plays at a certain venue on Monday, Tuesday, Wednesday, and Saturday. 
+We could pass a list of associated day numbers to your object or method, which might return "Mon-Wed, Sat".
+
+The purpose of this quiz is to find the best "Ruby way" to generate this sentence-like string.
+
+Basically, the rules are:
+
+* The class's constructor should accept a list of arguments that can be day
+  numbers (see day number hash below), day abbreviations ('Mon', 'Tue', etc.),
+  or the full names of the days ('Monday', 'Tuesday', etc.).
+* If an invalid day id is included in the argument list, the constructor
+  should raise an ArgumentError.
+* The days should be sorted starting with Monday.
+* Three or more consecutive days should be represented by listing the first
+  day followed by a hyphen (-), followed by the last day of the range.
+* Individual days and the above day ranges should be separated by commas.
+* The class should number days (accepting Integers or Strings) as follows:
+    1:  Mon
+    2:  Tue
+    3:  Wed
+    4:  Thu
+    5:  Fri
+    6:  Sat
+    7:  Sun
+* The class needs a method named #to_s that returns the day range string.
+  Here are some example lists of days and their expected returned strings:
+    1,2,3,4,5,6,7:  Mon-Sun
+    1,2,3,6,7:      Mon-Wed, Sat, Sun
+    1,3,4,5,6:      Mon, Wed-Sat
+    2,3,4,6,7:      Tue-Thu, Sat, Sun
+    1,3,4,6,7:      Mon, Wed, Thu, Sat, Sun
+    7:              Sun
+    1,7:            Mon, Sun
+    1,8:            ArgumentError
+
+Solution: 
+I use the initialize methdo to do the input argument checking, it will raise argument error if
+passing invalid arugments. 
+
+Array#abbrev is used here so the code can create a lookup table for all possible abbreviations to the actual numbers.
+
+DayRange#number_ranges starts the process by building an Array of Arrays with the days divided into groups of start and 
+end days. Days that run in succession are grouped together and lone days appear as both the start and end. For example, 
+the days 1, 2, 3, and 6 would be divided into `[[1, 3], [6, 6]]`.
